@@ -5,7 +5,7 @@ import { ParsedRequest } from "./types";
 export function parseRequest(req: IncomingMessage) {
   console.log("HTTP " + req.url);
   const { pathname, query } = parse(req.url || "/", true);
-  const { theme, subheader, logo } = query || {};
+  const { theme, subheader } = query || {};
 
   if (Array.isArray(theme)) {
     throw new Error("Expected a single theme");
@@ -28,9 +28,6 @@ export function parseRequest(req: IncomingMessage) {
     header: decodeURIComponent(header),
     subheader: subheader as string,
     theme: theme === "dark" ? "dark" : "light",
-    logo: logo
-      ? (logo as string)
-      : "https://cdn.onboarded.app/logos/default.png",
   };
   return parsedRequest;
 }

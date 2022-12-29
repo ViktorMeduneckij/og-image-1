@@ -1,6 +1,5 @@
 import core from "puppeteer-core";
 import { getOptions } from "./options";
-import { FileType } from "./types";
 
 let _page: core.Page | null;
 
@@ -14,14 +13,10 @@ async function getPage(isDev: boolean) {
   return _page;
 }
 
-export async function getScreenshot(
-  html: string,
-  type: FileType,
-  isDev: boolean
-) {
+export async function getScreenshot(html: string, isDev: boolean) {
   const page = await getPage(isDev);
   await page.setViewport({ width: 2048, height: 1170 });
   await page.setContent(html, { waitUntil: "domcontentloaded" });
-  const file = await page.screenshot({ type });
+  const file = await page.screenshot({ type: "png" });
   return file;
 }

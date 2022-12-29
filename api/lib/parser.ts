@@ -3,31 +3,43 @@ import { parse } from "url";
 import { ParsedRequest } from "./types";
 
 export function parseRequest(req: IncomingMessage) {
-  console.log("HTTP " + req.url);
   const { pathname, query } = parse(req.url || "/", true);
-  const { theme, subheader } = query || {};
-
-  if (Array.isArray(theme)) {
-    throw new Error("Expected a single theme");
-  }
+  const {
+    theme,
+    image,
+    uawValue,
+    uawChange,
+    transactionsValue,
+    transactionsChange,
+    volumeValue,
+    volumeChange,
+    balanceValue,
+    balanceChange,
+  } = query || {};
 
   const arr = (pathname || "/").slice(1).split(".");
-  let extension = "";
-  let header = "";
+  let dappSlug = "";
+
   if (arr.length === 0) {
-    header = "";
+    dappSlug = "";
   } else if (arr.length === 1) {
-    header = arr[0];
+    dappSlug = arr[0];
   } else {
-    extension = arr.pop() as string;
-    header = arr.join(".");
+    dappSlug = arr.join(".");
   }
 
   const parsedRequest: ParsedRequest = {
-    fileType: extension === "jpeg" ? extension : "png",
-    header: decodeURIComponent(header),
-    subheader: subheader as string,
+    dappSlug: decodeURIComponent(dappSlug),
     theme: theme === "dark" ? "dark" : "light",
+    image,
+    uawValue,
+    uawChange,
+    transactionsValue,
+    transactionsChange,
+    volumeValue,
+    volumeChange,
+    balanceValue,
+    balanceChange,
   };
   return parsedRequest;
 }

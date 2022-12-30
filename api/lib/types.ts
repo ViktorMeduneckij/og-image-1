@@ -1,8 +1,5 @@
-export type Theme = "light" | "dark";
-
 export interface ParsedRequest {
   dappSlug: string;
-  theme: Theme;
   image: any;
   uawValue: any;
   uawChange: any;
@@ -12,4 +9,5 @@ export interface ParsedRequest {
   volumeChange: any;
   balanceValue: any;
   balanceChange: any;
+  updatedAt: any;
 }

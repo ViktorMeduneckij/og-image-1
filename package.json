@@ -1,10 +1,9 @@
 {
-  "name": "og-image",
+  "name": "dappradar-og-image",
   "version": "1.0.0",
   "description": "An API that can generate OG images",
   "main": "index.js",
   "repository": "https://github.com/driaug/og-image",
-  "author": "Dries Augustyns",
   "license": "MIT",
   "private": true,
   "scripts": {

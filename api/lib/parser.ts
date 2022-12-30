@@ -5,7 +5,6 @@ import { ParsedRequest } from "./types";
 export function parseRequest(req: IncomingMessage) {
   const { pathname, query } = parse(req.url || "/", true);
   const {
-    theme,
     image,
     uawValue,
     uawChange,
@@ -15,6 +14,7 @@ export function parseRequest(req: IncomingMessage) {
     volumeChange,
     balanceValue,
     balanceChange,
+    updatedAt,
   } = query || {};
 
   const arr = (pathname || "/").slice(1).split(".");
@@ -30,7 +30,6 @@ export function parseRequest(req: IncomingMessage) {
 
   const parsedRequest: ParsedRequest = {
     dappSlug: decodeURIComponent(dappSlug),
-    theme: theme === "dark" ? "dark" : "light",
     image,
     uawValue,
     uawChange,
@@ -40,6 +39,7 @@ export function parseRequest(req: IncomingMessage) {
     volumeChange,
     balanceValue,
     balanceChange,
+    updatedAt,
   };
   return parsedRequest;
 }

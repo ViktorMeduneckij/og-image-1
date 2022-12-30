@@ -2,7 +2,8 @@ import { IncomingMessage, ServerResponse } from "http";
 import { getScreenshot } from "./lib/chromium";
 import { parseRequest } from "./lib/parser";
 import { getHtml } from "./lib/template";
-const isDev = !process.env.AWS_REGION;
+//TODO change this.
+const isDev = true;
 
 export default async function handler(
   req: IncomingMessage,
@@ -12,12 +13,12 @@ export default async function handler(
 
   const html = getHtml(parsedReq);
 
-  // const file = await getScreenshot(html, isDev);
+  const file = await getScreenshot(html, isDev);
   res.statusCode = 200;
-  // res.setHeader("Content-Type", "image/png");
-  // res.setHeader(
-  //   "Cache-Control",
-  //   `public, immutable, no-transform, s-maxage=31536000, max-age=31536000`
-  // );
-  res.end(html);
+  res.setHeader("Content-Type", "image/png");
+  res.setHeader(
+    "Cache-Control",
+    `public, immutable, no-transform, s-maxage=31536000, max-age=31536000`
+  );
+  res.end(file);
 }
